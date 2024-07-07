@@ -2,6 +2,21 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Rewards Program Calculation
+
+## Overview
+This project calculates reward points earned by customers based on their purchase transactions over a three-month period. The rewards program awards points according to specific rules based on transaction amounts.
+
+## Input
+The input to the calculation consists of a record of transactions for each customer over the three-month period. Each transaction includes the transaction amount.
+
+## Output
+The output provides:
+
+Monthly reward points earned for each customer.
+Total reward points earned over the three-month period for each customer.
+
+
 ## Available Scripts
 
 In the project directory, you can run:
