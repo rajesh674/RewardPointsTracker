@@ -75,7 +75,6 @@ function App() {
     });
   }, []);
 
-
   if (loader) {
     return <Loader />;
   }
