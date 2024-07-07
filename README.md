@@ -21,6 +21,7 @@ The input to the calculation consists of a record of transactions for each custo
 The output provides:
 
 Monthly reward points earned for each customer.
+
 Total reward points earned over the three-month period for each customer.
 
 # Getting Started with Create React App
