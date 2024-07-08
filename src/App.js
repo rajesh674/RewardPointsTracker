@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 
-import fetch from './api/dataService';
-import { calculateResults } from "./common/calculateResults"
+import useApi from './Hooks/useApi';
+
 import Loader from "./components/Loader";
 import ErrorPage from "./components/ErrorPage";
 import Tables from "./components/Tables";
+
 const styleObj = {
   maxWidth: '1200px', margin: '0 auto'
 }
@@ -57,28 +58,13 @@ function CustomTabPanel(props) {
   );
 }
 function App() {
-  const [transactionData, setTransactionData] = useState(null);
-  const [loader, setLoader] = useState(false);
-  const [error, setError] = useState('');
+  const { data, loading, error } = useApi();
   const [value, setValue] = useState(0);
 
-
-  useEffect(() => {
-    setLoader(true)
-    fetch().then((data) => {
-      const results = calculateResults(data);
-      setTransactionData(results);
-    }).catch((error) => {
-      setError(error)
-    }).finally(() => {
-      setLoader(false)
-    });
-  }, []);
-
-  if (loader) {
+  if (loading) {
     return <Loader />;
   }
-  if (!transactionData || error.length > 0) {
+  if (error?.length > 0) {
     return <ErrorPage />;
   }
 
@@ -99,10 +85,10 @@ function App() {
       </Tabs>
     </Box>
     <CustomTabPanel value={value} index={0}>
-      <Tables title="Total monthly reward points of customers" data={transactionData.summaryByCustomer} subRow={true} pointsPerTransaction={transactionData.pointsPerTransaction} columns={columns} />
+      <Tables title="Total monthly reward points of customers" data={data?.summaryByCustomer} subRow={true} pointsPerTransaction={data?.pointsPerTransaction} columns={columns} />
     </CustomTabPanel>
     <CustomTabPanel value={value} index={1}>
-      <Tables title="Total reward points of customers" data={transactionData.totalPointsByCustomer} subRow={false} columns={totalsByColumns} />
+      <Tables title="Total reward points of customers" data={data?.totalPointsByCustomer} subRow={false} columns={totalsByColumns} />
     </CustomTabPanel>
   </div>;
 }

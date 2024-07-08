@@ -11,8 +11,6 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 
 const titleObj = {
-    borderBottom:'1px #eee solid',
-    padding:'0 0 15px',
     marginBottom:'15px',
     fontWeight:600,
 }
@@ -26,7 +24,7 @@ const Tables = ({ title, data, pointsPerTransaction, columns }) => {
 
     return (
         <>
-                <Typography data-testid="data-testid-title" style={titleObj} variant="h5" gutterBottom>
+                <Typography style={titleObj} variant="h5" gutterBottom>
                     {title}
                 </Typography>
 

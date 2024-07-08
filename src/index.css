@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+table{
+  background-color: #fff;
+}
+table thead{
+  background-color: #1976d2;
+}
+table thead th{
+  color:#fff !important;
+}
+table tbody tr:nth-of-type(even) {
+  background-color: rgba(0, 0, 0, 0.04);
+}
