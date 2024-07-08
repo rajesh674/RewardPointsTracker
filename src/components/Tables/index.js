@@ -26,7 +26,7 @@ const Tables = ({ title, data, pointsPerTransaction, columns }) => {
 
     return (
         <>
-                <Typography style={titleObj} variant="h5" gutterBottom>
+                <Typography data-testid="data-testid-title" style={titleObj} variant="h5" gutterBottom>
                     {title}
                 </Typography>
 

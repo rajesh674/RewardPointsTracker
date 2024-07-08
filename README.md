@@ -24,6 +24,11 @@ Monthly reward points earned for each customer.
 
 Total reward points earned over the three-month period for each customer.
 
+## Author
+
+Rajesh Kumar Mishra
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

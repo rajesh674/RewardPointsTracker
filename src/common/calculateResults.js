@@ -8,9 +8,9 @@ export function calculateResults(incomingData) {
 
       if (over100 > 0) {
         // A customer receives 2 points for every dollar spent over $100 in each transaction      
-        points += (over100 * 2) + 50;
+        points += (over100 * 2) + (1*50);
       }
-      if (transaction.amt > 50 && transaction.amt < 100) {
+      if (transaction.amt >= 50 && transaction.amt <= 100) {
         // plus 1 point for every dollar spent over $50 in each transaction
         points += transaction.amt - 50;
       }

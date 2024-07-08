@@ -93,7 +93,7 @@ function App() {
   }
   return <div style={styleObj}>
     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-      <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+      <Tabs value={value} onChange={handleChange}>
         <Tab label="Monthly Rewards" {...a11yProps(0)} />
         <Tab label="Total Rewards" {...a11yProps(1)} />
       </Tabs>

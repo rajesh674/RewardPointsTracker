@@ -14,7 +14,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const TableRows = ({ id, row, subrow }) => {
     const [open, setOpen] = useState(false);
-    console.log('row',row)
+
     return (
         <>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
