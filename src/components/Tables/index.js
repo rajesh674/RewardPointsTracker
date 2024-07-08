@@ -11,8 +11,8 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 
 const titleObj = {
-    marginBottom:'15px',
-    fontWeight:600,
+    marginBottom: '15px',
+    fontWeight: 600,
 }
 const Tables = ({ title, data, pointsPerTransaction, columns }) => {
     function getIndividualTransactions(row) {
@@ -24,18 +24,18 @@ const Tables = ({ title, data, pointsPerTransaction, columns }) => {
 
     return (
         <>
-                <Typography style={titleObj} variant="h5" gutterBottom>
-                    {title}
-                </Typography>
+            <Typography style={titleObj} variant="h5" gutterBottom>
+                {title}
+            </Typography>
 
             <TableContainer component={Paper}>
                 <Table aria-label="collapsible table">
                     <TableHead>
                         <TableRow>
-                        <TableCell/>
-                            <TableCell style={{fontWeight:600}}>Sr.</TableCell>
+                            <TableCell />
+                            <TableCell style={{ fontWeight: 600 }}>Sr.</TableCell>
                             {columns.map((el, i) => {
-                                return <TableCell style={{fontWeight:600}} align='center' key={i}>{el?.Header}</TableCell>
+                                return <TableCell style={{ fontWeight: 600 }} align='center' key={i}>{el?.Header}</TableCell>
                             })}
                         </TableRow>
                     </TableHead>
