@@ -1,6 +1,7 @@
 export function calculateResults(incomingData) {
   // Calculate points per transaction
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
   const pointsPerTransaction = incomingData.map(transaction => {
     if (typeof transaction.amt !== 'number' || transaction.amt < 0) {
       throw new Error('Invalid transaction amount');
@@ -22,7 +23,7 @@ export function calculateResults(incomingData) {
   
   let byCustomer = {};
   let totalPointsByCustomer = {};
-  pointsPerTransaction.forEach(({ custid, name, month, points, amt }) => {
+  pointsPerTransaction.map(({ custid, name, month, points, amt }) => {
     // Initialize byCustomer[custid] if it doesn't exist
     byCustomer[custid] = byCustomer[custid] || [];
   

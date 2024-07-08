@@ -94,7 +94,7 @@ export default function() {
         },
         {
           custid: 3,
-          name: "Naman jain",
+          name: "naman jain",
           amt: 120,
           transactionDt: "06-21-2024"
         }
