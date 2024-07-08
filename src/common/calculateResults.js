@@ -19,27 +19,30 @@ export function calculateResults(incomingData) {
     const month = new Date(transaction.transactionDt).getMonth();
     return { ...transaction, points, month };
   });
+  
   let byCustomer = {};
   let totalPointsByCustomer = {};
-  pointsPerTransaction.forEach(pointsPerTransaction => {
-    let { custid, name, month, points, amt } = pointsPerTransaction;
-    if (!byCustomer[custid]) {
-      byCustomer[custid] = [];
-    }
-    if (!totalPointsByCustomer[name]) {
-      totalPointsByCustomer[name] = { name: name, points: 0, amt: 0 };
-    }
+  pointsPerTransaction.forEach(({ custid, name, month, points, amt }) => {
+    // Initialize byCustomer[custid] if it doesn't exist
+    byCustomer[custid] = byCustomer[custid] || [];
+  
+    // Initialize totalPointsByCustomer[name] if it doesn't exist
+    totalPointsByCustomer[name] = totalPointsByCustomer[name] || { name: name, points: 0, amt: 0 };
+  
+    // Update total points and amount for the customer
     totalPointsByCustomer[name].points += points;
     totalPointsByCustomer[name].amt += amt;
-
-    if (byCustomer[custid][month]) {
-      byCustomer[custid][month].points += points;
-      byCustomer[custid][month].monthNumber = month;
-      byCustomer[custid][month].numTransactions++;
-      byCustomer[custid][month].amt += amt;
-    }
-    else {
-      byCustomer[custid][month] = {
+  
+    // Find or create the entry for this month in byCustomer[custid]
+    let monthEntry = byCustomer[custid].find(entry => entry.monthNumber === month);
+    if (monthEntry) {
+      // If month entry exists, update it
+      monthEntry.points += points;
+      monthEntry.numTransactions++;
+      monthEntry.amt += amt;
+    } else {
+      // If month entry doesn't exist, create a new entry
+      byCustomer[custid].push({
         custid,
         name,
         monthNumber: month,
@@ -47,24 +50,22 @@ export function calculateResults(incomingData) {
         numTransactions: 1,
         points,
         amt,
-      }
+      });
     }
   });
-  let totalByCustomer = [];
-  for (var custKey in byCustomer) {
-    byCustomer[custKey].forEach(cRow => {
-      totalByCustomer.push(cRow);
-    });
-  }
+  
+// Convert byCustomer object into a flat array of customer rows
+  let totalByCustomer = Object.keys(byCustomer).flatMap(custKey =>
+    byCustomer[custKey].map(cRow => cRow)
+  );
 
-  let totByCustomer = [];
-  for (custKey in totalPointsByCustomer) {
-    totByCustomer.push({
-      name: custKey,
-      points: totalPointsByCustomer[custKey].points,
-      amt: totalPointsByCustomer[custKey].amt,
-    });
-  }
+// Convert totalPointsByCustomer object into an array of objects with name, points, and amt properties
+  let totByCustomer = Object.entries(totalPointsByCustomer).map(([custKey, data]) => ({
+    name: custKey,
+    points: data.points,
+    amt: data.amt,
+  }));
+
   return {
     summaryByCustomer: totalByCustomer,
     pointsPerTransaction,
