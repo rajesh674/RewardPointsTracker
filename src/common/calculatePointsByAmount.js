@@ -8,7 +8,7 @@ const calculatePointsByAmount = (amount) => {
         // plus 0 point for every dollar spent over $50 in each transaction
         points = 0;
       }
-      if (over100 > 0) {
+      if (amount > 100) {
         // A customer receives 2 points for every dollar spent over $100 in each transaction      
         points += (over100 * 2) + (1 * 50);
       }
