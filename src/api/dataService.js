@@ -4,99 +4,99 @@ export default function() {
     [
         {
           custid: 1,
-          name: "Ram",
-          amt: 120,
-          transactionDt: "05-01-2024"
+          customerName: "Ram",
+          amount: 120,
+          transactionDate: "05-01-2024"
         },
         {
           custid: 1,
-          name: "Ram",
-          amt: 75,
-          transactionDt: "05-21-2024"
+          customerName: "Ram",
+          amount: 75,
+          transactionDate: "05-21-2024"
         },
         {
           custid: 1,
-          name: "Ram",
-          amt: 94,
-          transactionDt: "05-21-2024"
+          customerName: "Ram",
+          amount: 94,
+          transactionDate: "05-21-2024"
         },
         {
           custid: 1,
-          name: "Ram",
-          amt: 10,
-          transactionDt: "06-01-2024"
+          customerName: "Ram",
+          amount: 10,
+          transactionDate: "06-01-2024"
         },
         {
           custid: 1,
-          name: "Ram",
-          amt: 75,
-          transactionDt: "06-21-2024"
+          customerName: "Ram",
+          amount: 75,
+          transactionDate: "06-21-2024"
         },
         {
           custid: 1,
-          name: "Ram",
-          amt: 200,
-          transactionDt: "07-01-2024"
+          customerName: "Ram",
+          amount: 200,
+          transactionDate: "07-01-2024"
         },
         {
           custid: 1,
-          name: "Ram",
-          amt: 1,
-          transactionDt: "07-04-2024"
+          customerName: "Ram",
+          amount: 1,
+          transactionDate: "07-04-2024"
         },
         {
           custid: 1,
-          name: "Ram",
-          amt: 80,
-          transactionDt: "07-03-2024"
+          customerName: "Ram",
+          amount: 80,
+          transactionDate: "07-03-2024"
         },
         {
           custid: 1,
-          name: "Ram",
-          amt: 224,
-          transactionDt: "07-21-2024"
+          customerName: "Ram",
+          amount: 224,
+          transactionDate: "07-21-2024"
         },
         {
           custid: 2,
-          name: "Rohan",
-          amt: 125,
-          transactionDt: "05-01-2024"
+          customerName: "Rohan",
+          amount: 125,
+          transactionDate: "05-01-2024"
         },
         {
           custid: 2,
-          name: "Rohan",
-          amt: 75,
-          transactionDt: "05-21-2024"
+          customerName: "Rohan",
+          amount: 75,
+          transactionDate: "05-21-2024"
         },
         {
           custid: 2,
-          name: "Rohan",
-          amt: 10,
-          transactionDt: "06-01-2024"
+          customerName: "Rohan",
+          amount: 10,
+          transactionDate: "06-01-2024"
         },
         {
           custid: 2,
-          name: "Rohan",
-          amt: 75,
-          transactionDt: "06-21-2024"
+          customerName: "Rohan",
+          amount: 75,
+          transactionDate: "06-21-2024"
         },
         {
           custid: 2,
-          name: "Rohan",
-          amt: 200,
-          transactionDt: "07-01-2024"
+          customerName: "Rohan",
+          amount: 200,
+          transactionDate: "07-01-2024"
         },
         {
           custid: 2,
-          name: "Rohan",
-          amt: 224,
-          transactionDt: "07-21-2024"
+          customerName: "Rohan",
+          amount: 224,
+          transactionDate: "07-21-2024"
         },
         {
           custid: 3,
-          name: "naman jain",
-          amt: 120,
-          transactionDt: "06-21-2024"
+          customerName: "naman jain",
+          amount: 120,
+          transactionDate: "06-21-2024"
         }
     ]
   );

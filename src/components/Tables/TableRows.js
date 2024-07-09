@@ -31,13 +31,13 @@ const TableRows = ({ id, row, subrow }) => {
                     {id + 1}
                 </TableCell>
                 <TableCell align='center' component="th" scope="row">
-                    {row.name}
+                    {row.customerName}
                 </TableCell>
                 {subrow && <>
                     <TableCell align='center'>{row.month}</TableCell>
                     <TableCell align='center'>{row.numTransactions}</TableCell>
                 </>}
-                <TableCell align='center'>${row.amt}</TableCell>
+                <TableCell align='center'>${row.amount}</TableCell>
                 <TableCell align='center'>{row.points}</TableCell>
             </TableRow>
             {subrow && <TableRow>
@@ -59,10 +59,10 @@ const TableRows = ({ id, row, subrow }) => {
                                     {subrow.map((historyRow, i) => (
                                         <TableRow key={i}>
                                             <TableCell style={{ padding: "20px 15px" }}>
-                                                {historyRow.transactionDt}
+                                                {historyRow.transactionDate}
                                             </TableCell>
 
-                                            <TableCell>${historyRow.amt}</TableCell>
+                                            <TableCell>${historyRow.amount}</TableCell>
                                             <TableCell>{historyRow.points}</TableCell>
                                         </TableRow>
                                     ))}
