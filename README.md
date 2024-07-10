@@ -52,12 +52,12 @@ reward-calculator/
 ├── src/
 │   ├── __tests__/
 │   │   ├── calculatePointsByAmount.js
-│   │   └── calculateRewardPointsByTransactions.js
-        └── customerRewards.js
+        └── calculateResults.js
 │   ├── api/
 │   │   ├── dataService.js
 │   ├── common/
-│   │   ├── calculateResults.js
+│   │   ├── calculatePointsByAmount.js
+        └── calculateResults.js
 │   ├── component/
     │   │   ├── ErrorPage
     │   │   ├    ├── index.js

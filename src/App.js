@@ -61,6 +61,8 @@ function App() {
   const { data, loading, error } = useApi();
   const [value, setValue] = useState(0);
 
+  console.log('data',data)
+
   if (loading) {
     return <Loader />;
   }
