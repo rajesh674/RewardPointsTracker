@@ -1,17 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, Suspense, lazy } from "react";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 
+// Importing custom hook for API data fetching
 import useApi from './Hooks/useApi';
+
+// Importing components
 
 import Loader from "./components/Loader";
 import ErrorPage from "./components/ErrorPage";
-import Tables from "./components/Tables";
+// Importing Tables component dynamically using lazy and Suspense
+const Tables = lazy(() => import('./components/Tables'));
 
+// Styles for the container div
 const styleObj = {
-  maxWidth: '1200px', margin: '0 auto'
+  maxWidth: '1200px',
+  margin: '0 auto'
 }
+
+// Columns for the 'Monthly Rewards' tab
 const columns = [
   {
     Header: 'Customer Name'
@@ -30,6 +38,7 @@ const columns = [
   }
 ];
 
+// Columns for the 'Total Rewards' tab
 const totalsByColumns = [
   {
     Header: 'Customer Name'
@@ -40,8 +49,9 @@ const totalsByColumns = [
   {
     Header: 'Total Points'
   },
+];
 
-]
+// Function component for custom tab panel
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -57,42 +67,63 @@ function CustomTabPanel(props) {
     </div>
   );
 }
+
+// Main App component
 function App() {
+  // State for managing API data fetching status
   const { data, loading, error } = useApi();
+
+  // State for managing current active tab
   const [value, setValue] = useState(0);
 
-  console.log('data',data)
-
+  // Loader while fetching data
   if (loading) {
     return <Loader />;
   }
+
+  // Display error page if there is an error
   if (error?.length > 0) {
     return <ErrorPage />;
   }
 
-  const handleChange = (event, newValue) => {
+  // Handle tab change
+  const handleChange = (newValue) => {
     setValue(newValue);
   };
+
+  // Accessibility props for tabs
   function a11yProps(index) {
     return {
       id: `simple-tab-${index}`,
       'aria-controls': `simple-tabpanel-${index}`,
     };
   }
-  return <div style={styleObj}>
-    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-      <Tabs value={value} onChange={handleChange}>
-        <Tab label="Monthly Rewards" {...a11yProps(0)} />
-        <Tab label="Total Rewards" {...a11yProps(1)} />
-      </Tabs>
-    </Box>
-    <CustomTabPanel value={value} index={0}>
-      <Tables title="Total monthly reward points of customers" data={data?.summaryByCustomer} subRow={true} pointsPerTransaction={data?.pointsPerTransaction} columns={columns} />
-    </CustomTabPanel>
-    <CustomTabPanel value={value} index={1}>
-      <Tables title="Total reward points of customers" data={data?.totalPointsByCustomer} subRow={false} columns={totalsByColumns} />
-    </CustomTabPanel>
-  </div>;
+
+  return (
+    <div style={styleObj}>
+      {/* Tabs for switching between Monthly Rewards and Total Rewards */}
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={value} onChange={(e, newValue) => handleChange(newValue)}>
+          <Tab label="Monthly Rewards" {...a11yProps(0)} />
+          <Tab label="Total Rewards" {...a11yProps(1)} />
+        </Tabs>
+      </Box>
+
+      {/* Tab panels */}
+      <CustomTabPanel value={value} index={0}>
+        {/* Lazy-loaded component for displaying monthly reward points */}
+        <Suspense fallback={<Loader />}>
+          <Tables title="Total monthly reward points of customers" data={data?.summaryByCustomer} subRow={true} pointsPerTransaction={data?.pointsPerTransaction} columns={columns} />
+        </Suspense>
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        {/* Lazy-loaded component for displaying total reward points */}
+        <Suspense fallback={<Loader />}>
+          <Tables title="Total reward points of customers" data={data?.totalPointsByCustomer} subRow={false} columns={totalsByColumns} />
+        </Suspense>
+      </CustomTabPanel>
+    </div>
+  );
 }
 
-export default App;
+export default App; // Exporting the App component as default

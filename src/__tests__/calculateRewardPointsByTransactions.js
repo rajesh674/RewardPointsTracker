@@ -1,7 +1,7 @@
 // Import the function to be tested
-import { calculateResults } from '../common/calculateResults';
+import { calculateRewardPointsByTransactions } from '../utils/calculateRewardPointsByTransactions';
 
-describe('calculateResults function', () => {
+describe('calculateRewardPointsByTransactions function', () => {
   // Test case for normal scenario
   it('calculates points per transaction correctly', () => {
     const testData = [
@@ -9,7 +9,7 @@ describe('calculateResults function', () => {
       { custid: 2, customerName: 'Rohan', amount: 200, transactionDate: '01-20-2024' }
     ];
 
-    const result = calculateResults(testData);
+    const result = calculateRewardPointsByTransactions(testData);
 
     expect(result).toBeDefined();
     expect(result.pointsPerTransaction).toHaveLength(2);
@@ -28,7 +28,7 @@ describe('calculateResults function', () => {
     ];
 
     // Wrap the function call in a function to catch the error
-    const testFunction = () => calculateResults(testData);
+    const testFunction = () => calculateRewardPointsByTransactions(testData);
 
     expect(testFunction).toThrow('Invalid transaction amount');
   });
@@ -41,7 +41,7 @@ describe('calculateResults function', () => {
       { custid: 2, customerName: 'Rohan', amount: 200, transactionDate: '01-05-2024' }
     ];
 
-    const result = calculateResults(testData);
+    const result = calculateRewardPointsByTransactions(testData);
 
     expect(result).toBeDefined();
     expect(result.summaryByCustomer).toHaveLength(3); // Assuming three different entries based on testData

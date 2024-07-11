@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { calculateResults } from "../common/calculateResults"
-import apiData from '../api/dataService';
+import { calculateRewardPointsByTransactions } from "../utils/calculateRewardPointsByTransactions"
+import apiData from '../service/dataService';
 
 const useApi = (url) => {
     const [data, setData] = useState(null);
@@ -12,7 +12,7 @@ const useApi = (url) => {
             setLoading(true);
             try {
                 apiData().then((data) => {
-                    const results = calculateResults(data);
+                    const results = calculateRewardPointsByTransactions(data);
                     setData(results);
                 }).catch((err) => setError(err))
             } catch (error) {

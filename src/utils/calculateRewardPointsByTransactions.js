@@ -1,7 +1,9 @@
 import calculatePointsByAmount from './calculatePointsByAmount';
-export function calculateResults(incomingData) {
+export function calculateRewardPointsByTransactions(incomingData) {
+  
   // Calculate points per transaction
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
   const pointsPerTransaction = incomingData.map(transaction => {
     let points = calculatePointsByAmount(transaction.amount);
     const month = new Date(transaction.transactionDate).getMonth();

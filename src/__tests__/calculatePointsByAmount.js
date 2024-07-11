@@ -1,4 +1,4 @@
-import  calculatePointsByAmount from '../common/calculatePointsByAmount';
+import  calculatePointsByAmount from '../utils/calculatePointsByAmount';
 
 
 describe('Testcase for calculate Points By Amount', () => {

@@ -11,21 +11,24 @@ import Typography from '@mui/material/Typography';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-
+// Functional component for rendering each row in the table
 const TableRows = ({ id, row, subrow }) => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false); // State for managing row expansion/collapse
 
     return (
         <>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
                 <TableCell>
-                    {subrow && <IconButton
-                        aria-label="expand row"
-                        size="small"
-                        onClick={() => setOpen(!open)}
-                    >
-                        {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                    </IconButton>}
+                     {/* Display expand/collapse button if subrow exists */}
+                    {subrow && (
+                        <IconButton
+                            aria-label="expand row"
+                            size="small"
+                            onClick={() => setOpen(!open)} 
+                        >
+                            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />} 
+                        </IconButton>
+                    )}
                 </TableCell>
                 <TableCell>
                     {id + 1}
@@ -33,47 +36,61 @@ const TableRows = ({ id, row, subrow }) => {
                 <TableCell align='center' component="th" scope="row">
                     {row.customerName}
                 </TableCell>
-                {subrow && <>
-                    <TableCell align='center'>{row.month}</TableCell>
-                    <TableCell align='center'>{row.numTransactions}</TableCell>
-                </>}
+                 {/* Additional columns displayed only if subrow exists */}
+                {subrow && (
+                    <>
+                        <TableCell align='center'>{row.month}</TableCell> 
+                        <TableCell align='center'>{row.numTransactions}</TableCell> 
+                    </>
+                )}
                 <TableCell align='center'>${row.amount}</TableCell>
                 <TableCell align='center'>{row.points}</TableCell>
             </TableRow>
-            {subrow && <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-                    <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Box sx={{ margin: 1 }}>
-                            <Typography variant="h6" style={{ fontWeight: 600 }} gutterBottom component="div">
-                                Transaction History
-                            </Typography>
-                            <Table size="small" aria-label="purchases">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell style={{ fontWeight: 600 }}>Transaction Date</TableCell>
-                                        <TableCell style={{ fontWeight: 600 }}> Transaction Amount</TableCell>
-                                        <TableCell style={{ fontWeight: 600 }}>Reward Points</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {subrow.map((historyRow, i) => (
-                                        <TableRow key={i}>
-                                            <TableCell style={{ padding: "20px 15px" }}>
-                                                {historyRow.transactionDate}
-                                            </TableCell>
 
-                                            <TableCell>${historyRow.amount}</TableCell>
-                                            <TableCell>{historyRow.points}</TableCell>
+            {/* Subrow with transaction history */}
+            {subrow && (
+                <TableRow>
+                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                        {/* Collapse component for showing/hiding the transaction history */}
+                        <Collapse in={open} timeout="auto" unmountOnExit>
+                            <Box sx={{ margin: 1 }}>
+                                {/* Title for the transaction history section */}
+                                <Typography variant="h6" style={{ fontWeight: 600 }} gutterBottom component="div">
+                                    Transaction History
+                                </Typography>
+                                 {/* Table displaying transaction history */}
+                                 <Table size="small" aria-label="purchases">
+                                    <TableHead>
+                                        <TableRow>
+                                            {/* Transaction history table headers */}
+                                            <TableCell style={{ fontWeight: 600 }}>Transaction Date</TableCell>
+                                            <TableCell style={{ fontWeight: 600 }}>Transaction Amount</TableCell>
+                                            <TableCell style={{ fontWeight: 600 }}>Reward Points</TableCell>
                                         </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </Box>
-                    </Collapse>
-                </TableCell>
-            </TableRow>}
+                                    </TableHead>
+                                    <TableBody>
+                                        {/* Mapping through subrow to display each transaction */}
+                                        {subrow.map((historyRow, i) => (
+                                            <TableRow key={i}>
+                                                {/* Transaction date */}
+                                                <TableCell style={{ padding: "20px 15px" }}>
+                                                    {historyRow.transactionDate}
+                                                </TableCell>
+                                                {/* Transaction amount */}
+                                                <TableCell>${historyRow.amount}</TableCell>
+                                                {/* Reward points */}
+                                                <TableCell>{historyRow.points}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </Box>
+                        </Collapse>
+                    </TableCell>
+                </TableRow>
+            )}
         </>
     );
 };
 
-export default TableRows;
+export default TableRows; // Exporting the TableRows component as default

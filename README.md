@@ -55,9 +55,9 @@ reward-calculator/
         └── calculateResults.js
 │   ├── api/
 │   │   ├── dataService.js
-│   ├── common/
+│   ├── utils/
 │   │   ├── calculatePointsByAmount.js
-        └── calculateResults.js
+        └── calculateRewardPointsByTransactions.js
 │   ├── component/
     │   │   ├── ErrorPage
     │   │   ├    ├── index.js
