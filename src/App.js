@@ -1,53 +1,53 @@
 import React, { useState, Suspense, lazy } from "react";
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
 
 // Importing custom hook for API data fetching
-import useApi from './Hooks/useApi';
+import useApi from "./Hooks/useApi";
 
 // Importing components
 
 import Loader from "./components/Loader";
 import ErrorPage from "./components/ErrorPage";
 // Importing Tables component dynamically using lazy and Suspense
-const Tables = lazy(() => import('./components/Tables'));
+const Tables = lazy(() => import("./components/Tables"));
 
 // Styles for the container div
 const styleObj = {
-  maxWidth: '1200px',
-  margin: '0 auto'
-}
+  maxWidth: "1200px",
+  margin: "0 auto",
+};
 
 // Columns for the 'Monthly Rewards' tab
 const columns = [
   {
-    Header: 'Customer Name'
+    Header: "Customer Name",
   },
   {
-    Header: 'Month'
+    Header: "Month",
   },
   {
-    Header: "Transaction Count"
+    Header: "Transaction Count",
   },
   {
-    Header: 'Total Amount'
+    Header: "Total Amount",
   },
   {
-    Header: 'Reward Points'
-  }
+    Header: "Reward Points",
+  },
 ];
 
 // Columns for the 'Total Rewards' tab
 const totalsByColumns = [
   {
-    Header: 'Customer Name'
+    Header: "Customer Name",
   },
   {
-    Header: 'Total Amount'
+    Header: "Total Amount",
   },
   {
-    Header: 'Total Points'
+    Header: "Total Points",
   },
 ];
 
@@ -95,14 +95,14 @@ function App() {
   function a11yProps(index) {
     return {
       id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
+      "aria-controls": `simple-tabpanel-${index}`,
     };
   }
 
   return (
     <div style={styleObj}>
       {/* Tabs for switching between Monthly Rewards and Total Rewards */}
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={value} onChange={(e, newValue) => handleChange(newValue)}>
           <Tab label="Monthly Rewards" {...a11yProps(0)} />
           <Tab label="Total Rewards" {...a11yProps(1)} />
@@ -113,13 +113,24 @@ function App() {
       <CustomTabPanel value={value} index={0}>
         {/* Lazy-loaded component for displaying monthly reward points */}
         <Suspense fallback={<Loader />}>
-          <Tables title="Total monthly reward points of customers" data={data?.summaryByCustomer} subRow={true} pointsPerTransaction={data?.pointsPerTransaction} columns={columns} />
+          <Tables
+            title="Total monthly reward points of customers"
+            data={data?.summaryByCustomer}
+            subRow={true}
+            pointsPerTransaction={data?.pointsPerTransaction}
+            columns={columns}
+          />
         </Suspense>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         {/* Lazy-loaded component for displaying total reward points */}
         <Suspense fallback={<Loader />}>
-          <Tables title="Total reward points of customers" data={data?.totalPointsByCustomer} subRow={false} columns={totalsByColumns} />
+          <Tables
+            title="Total reward points of customers"
+            data={data?.totalPointsByCustomer}
+            subRow={false}
+            columns={totalsByColumns}
+          />
         </Suspense>
       </CustomTabPanel>
     </div>
