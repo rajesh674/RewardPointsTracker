@@ -50,6 +50,10 @@ The application uses mock data to simulate the rewards calculation. The mock dat
 ![rewards-month](https://github.com/rajesh674/RewardPointsTracker/blob/main/public/assest/rewards-month.png)
 ![rewards-month-1](https://github.com/rajesh674/RewardPointsTracker/blob/main/public/assest/rewards-month-1.png)
 
+Error - 
+![error](https://github.com/rajesh674/RewardPointsTracker/blob/main/public/assest/error.png)
+
+
 ### File Structure
 
 reward-calculator/
