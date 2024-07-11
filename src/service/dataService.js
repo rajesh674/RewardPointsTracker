@@ -96,7 +96,31 @@ export default function() {
               customerName: "naman jain",
               amount: 120,
               transactionDate: "06-21-2024"
-          }
+          },
+          {
+            custid: 4,
+            customerName: "Ramesh",
+            amount: 150,
+            transactionDate: "05-01-2023"
+        },
+        {
+            custid: 4,
+            customerName: "Ramesh",
+            amount: 110,
+            transactionDate: "06-21-2024"
+        },
+        {
+            custid: 5,
+            customerName: "Mohan",
+            amount: 250,
+            transactionDate: "06-01-2023"
+        },
+        {
+            custid: 5,
+            customerName: "Mohan",
+            amount: 310,
+            transactionDate: "07-21-2024"
+        },
       ]
   );
 };
