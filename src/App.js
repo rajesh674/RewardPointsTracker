@@ -25,7 +25,7 @@ const columns = [
     Header: "Total Amount",
   },
   {
-    Header: "Reward Points",
+    Header: "Total Reward Points",
   },
 ];
 
