@@ -46,8 +46,9 @@ The frontend application will be available at `http://localhost:3000`.
 The application uses mock data to simulate the rewards calculation. The mock data is defined in `src/api/dataService.js`.
 
 ### Running Appilcation Screenshots
-![total-reward](https://github.com/rajesh674/RewardPointsTracker/tree/main/public/assest/total-reward.png)
-
+![total-reward](https://github.com/rajesh674/RewardPointsTracker/blob/main/public/assest/total-reward.png)
+![rewards-month](https://github.com/rajesh674/RewardPointsTracker/blob/main/public/assest/rewards-month.png)
+![rewards-month-1](https://github.com/rajesh674/RewardPointsTracker/blob/main/public/assest/rewards-month-1.png)
 
 ### File Structure
 
