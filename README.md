@@ -67,7 +67,8 @@ reward-calculator/
 │   │   ├── RewardThresholdAmountEnum.js
 │   ├── utils/
 │   │   ├── calculatePointsByAmount.js
-        └── calculateRewardPointsByTransactions.js
+│   │   ├── calculateRewardPointsByTransactions.js
+        └── constants.js
 │   ├── component/
     │   │   ├── ErrorPage
     │   │   ├    ├── index.js
@@ -82,7 +83,7 @@ reward-calculator/
 │   │   └── ...
 │   ├── App.css
 │   ├── App.js
-│   ├── App.test.js
+│   ├── index.css
 │   ├── index.js
 │   ├── setupTests.js
 │   └── ...
