@@ -12,7 +12,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 // Functional component for rendering each row in the table
-const TableRows = ({ id, row, subrow }) => {
+const TableRows = ({ id, row }) => {
   const [open, setOpen] = useState(false); // State for managing row expansion/collapse
 
   return (
@@ -20,84 +20,74 @@ const TableRows = ({ id, row, subrow }) => {
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
         <TableCell>
           {/* Display expand/collapse button if subrow exists */}
-          {subrow && (
-            <IconButton
-              aria-label="expand row"
-              size="small"
-              onClick={() => setOpen(!open)}
-            >
-              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-            </IconButton>
-          )}
+
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+
         </TableCell>
         <TableCell>{id + 1}</TableCell>
         <TableCell align="center" component="th" scope="row">
           {row.customerName}
         </TableCell>
-        {/* Additional columns displayed only if subrow exists */}
-        {subrow && (
-          <>
-            <TableCell align="center">{row.month}</TableCell>
-            <TableCell align="center">{row.numTransactions}</TableCell>
-          </>
-        )}
-        <TableCell align="center">${row.amount}</TableCell>
-        <TableCell align="center">{row.points}</TableCell>
+        <TableCell align="center">${row.totalAmount}</TableCell>
+        <TableCell align="center">{row.totalRewardPoints}</TableCell>
       </TableRow>
 
       {/* Subrow with transaction history */}
-      {subrow && (
-        <TableRow>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-            {/* Collapse component for showing/hiding the transaction history */}
-            <Collapse in={open} timeout="auto" unmountOnExit>
-              <Box sx={{ margin: 1 }}>
-                {/* Title for the transaction history section */}
-                <Typography
-                  variant="h6"
-                  style={{ fontWeight: 600 }}
-                  gutterBottom
-                  component="div"
-                >
-                  Transaction History
-                </Typography>
-                {/* Table displaying transaction history */}
-                <Table size="small" aria-label="purchases">
-                  <TableHead>
-                    <TableRow>
-                      {/* Transaction history table headers */}
-                      <TableCell style={{ fontWeight: 600 }}>
-                        Transaction Date
+
+      {Object.keys(row?.monthlyRewardPoints) ? <TableRow>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+          {/* Collapse component for showing/hiding the transaction history */}
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box sx={{ margin: 1 }}>
+              {/* Title for the transaction history section */}
+              <Typography
+                variant="h6"
+                style={{ fontWeight: 600 }}
+                gutterBottom
+                component="div"
+              >
+                Transaction History
+              </Typography>
+              {/* Table displaying transaction history */}
+              <Table size="small" aria-label="purchases">
+                <TableHead>
+                  <TableRow>
+                    {/* Transaction history table headers */}
+                    <TableCell style={{ fontWeight: 600 }}>
+                      Transaction Month
+                    </TableCell>
+                    <TableCell style={{ fontWeight: 600 }}>
+                      Transaction Amount
+                    </TableCell>
+                    <TableCell style={{ fontWeight: 600 }}>
+                      Reward Points
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {/* Mapping through subrow to display each transaction */}
+                  {Object.keys(row?.monthlyRewardPoints).map((month, i) => (
+                    <TableRow key={i}>
+                      <TableCell style={{ padding: "20px 15px" }}>
+                        {month}
                       </TableCell>
-                      <TableCell style={{ fontWeight: 600 }}>
-                        Transaction Amount
-                      </TableCell>
-                      <TableCell style={{ fontWeight: 600 }}>
-                        Reward Points
-                      </TableCell>
+                      <TableCell>${row?.monthlyRewardPoints[month].amount}</TableCell>
+                      <TableCell>{row?.monthlyRewardPoints[month].points}</TableCell>
                     </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {/* Mapping through subrow to display each transaction */}
-                    {subrow.map((historyRow, i) => (
-                      <TableRow key={i}>
-                        {/* Transaction date */}
-                        <TableCell style={{ padding: "20px 15px" }}>
-                          {historyRow.transactionDate}
-                        </TableCell>
-                        {/* Transaction amount */}
-                        <TableCell>${historyRow.amount}</TableCell>
-                        {/* Reward points */}
-                        <TableCell>{historyRow.points}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </Box>
-            </Collapse>
-          </TableCell>
-        </TableRow>
-      )}
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
+          </Collapse>
+        </TableCell>
+      </TableRow> : ''}
+
     </>
   );
 };

@@ -13,19 +13,13 @@ import Paper from "@mui/material/Paper";
 
 // Styles for the title
 const titleObj = {
+  marginTop: "15px",
   marginBottom: "15px",
   fontWeight: 600,
 };
 
 // Functional component for Tables
-const Tables = ({ title, data, pointsPerTransaction, columns }) => {
-  // Function to get individual transactions based on customer and month
-  function getIndividualTransactions(row) {
-    let byCustMonth = pointsPerTransaction.filter((tRow) => {
-      return row.custid === tRow.custid && row.monthNumber === tRow.month;
-    });
-    return byCustMonth;
-  }
+const Tables = ({ title, data, columns }) => {
 
   // Render the component
   return (
@@ -61,9 +55,6 @@ const Tables = ({ title, data, pointsPerTransaction, columns }) => {
                   key={i}
                   id={i}
                   row={row}
-                  subrow={
-                    pointsPerTransaction ? getIndividualTransactions(row) : null
-                  }
                 />
               );
             })}

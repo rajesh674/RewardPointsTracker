@@ -1,114 +1,45 @@
+// Importing the function to calculate points based on amount
 import calculatePointsByAmount from "./calculatePointsByAmount";
+
+// Exporting a function to calculate reward points by transactions
 export function calculateRewardPointsByTransactions(incomingData) {
-    // Calculate points per transaction
-    const months = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-    ];
+    // Using reduce to aggregate data into an object
+    const updatedData = incomingData.reduce((pointsByCustomer, transaction) => {
+        // Destructuring transaction object
+        const { custid, customerName, transactionDate, amount } = transaction;
 
-    const pointsPerTransaction = incomingData.map((transaction) => {
-        let points = calculatePointsByAmount(transaction.amount);
-        const month = new Date(transaction.transactionDate).getMonth();
-        return {
-            ...transaction,
-            points,
-            month
-        };
-    });
+        // Getting month name from transactionDate
+        const date = new Date(transactionDate);
+        const month = date.toLocaleString('default', { month: 'long' });
 
-    // Convert pointsPerTransaction using reduce
-    const {
-        byCustomer,
-        totalPointsByCustomer
-    } = pointsPerTransaction.reduce(
-        (acc, {
-            custid,
-            customerName,
-            month,
-            points,
-            amount
-        }) => {
-            // Destructure accumulated objects
-            let {
-                byCustomer,
-                totalPointsByCustomer
-            } = acc;
+        // Calculating points based on transaction amount
+        const points = calculatePointsByAmount(amount);
 
-            // Initialize byCustomer[custid] if it doesn't exist
-            byCustomer[custid] = byCustomer[custid] || [];
-
-            // Initialize totalPointsByCustomer[customerName] if it doesn't exist
-            totalPointsByCustomer[customerName] = totalPointsByCustomer[
-                customerName
-            ] || {
-                customerName: customerName,
-                points: 0,
-                amount: 0
+        // Initializing customer if not already present in pointsByCustomer object
+        if (!pointsByCustomer[custid]) {
+            pointsByCustomer[custid] = {
+                customerName: '',
+                monthlyRewardPoints: {},
+                totalRewardPoints: 0,
+                totalAmount: 0
             };
-
-            // Update total points and amount for the customer
-            totalPointsByCustomer[customerName].points += points;
-            totalPointsByCustomer[customerName].amount += amount;
-
-            // Find or create the entry for this month in byCustomer[custid]
-            let monthEntry = byCustomer[custid].find(
-                (entry) => entry.monthNumber === month
-            );
-            if (monthEntry) {
-                // If month entry exists, update it
-                monthEntry.points += points;
-                monthEntry.numTransactions++;
-                monthEntry.amount += amount;
-            } else {
-                // If month entry doesn't exist, create a new entry
-                byCustomer[custid].push({
-                    custid,
-                    customerName,
-                    monthNumber: month,
-                    month: months[month],
-                    numTransactions: 1,
-                    points,
-                    amount,
-                });
-            }
-            // Return the accumulated objects in the accumulator
-            return {
-                byCustomer,
-                totalPointsByCustomer
-            };
-        }, {
-            byCustomer: {},
-            totalPointsByCustomer: {}
         }
-    );
 
-    // Convert byCustomer object into a flat array of customer rows
-    let totalByCustomer = Object.keys(byCustomer).flatMap((custKey) =>
-        byCustomer[custKey].map((cRow) => cRow)
-    );
+        // Initializing monthly reward points if not already present for the month
+        if (!pointsByCustomer[custid].monthlyRewardPoints[month]) {
+            pointsByCustomer[custid].monthlyRewardPoints[month] = { points: 0, amount: 0 };
+        }
 
-    // Convert totalPointsByCustomer object into an array of objects with name, points, and amount properties
-    let totByCustomer = Object.entries(totalPointsByCustomer).map(
-        ([custKey, data]) => ({
-            customerName: custKey,
-            points: data.points,
-            amount: data.amount,
-        })
-    );
+        // Updating customer details and reward points
+        pointsByCustomer[custid].customerName = customerName;
+        pointsByCustomer[custid].monthlyRewardPoints[month].points += points;
+        pointsByCustomer[custid].monthlyRewardPoints[month].amount += amount;
+        pointsByCustomer[custid].totalRewardPoints += points;
+        pointsByCustomer[custid].totalAmount += amount;
 
-    return {
-        summaryByCustomer: totalByCustomer,
-        pointsPerTransaction,
-        totalPointsByCustomer: totByCustomer,
-    };
+        return pointsByCustomer;
+    }, {}); // Initial value for reduce is an empty object
+
+    // Converting updatedData object into an array of customer data objects
+    return Object.keys(updatedData).map(key => updatedData[key]);
 }
