@@ -52,9 +52,11 @@ reward-calculator/
 ├── src/
 │   ├── __tests__/
 │   │   ├── calculatePointsByAmount.js
-        └── calculateResults.js
-│   ├── api/
+        └── calculateRewardPointsByTransactions.js
+│   ├── service/
 │   │   ├── dataService.js
+│   ├── enum/
+│   │   ├── RewardThresholdAmountEnum.js
 │   ├── utils/
 │   │   ├── calculatePointsByAmount.js
         └── calculateRewardPointsByTransactions.js
