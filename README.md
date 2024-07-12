@@ -68,13 +68,13 @@ reward-calculator/
 │   │   ├── calculateRewardPointsByTransactions.js
         └── constants.js
 │   ├── component/
-    │   │   ├── ErrorPage
+    │   │   ├── errorpage
     │   │   ├    ├── index.js
-    │   │   ├── Loader
+    │   │   ├── loader
     │   │   ├    ├── index.js
-    │   │   ├── Tables
+    │   │   ├── customerrewards
     │   │   ├    ├── index.js
-    │   │   ├    ├── TableRows.js
+    │   │   ├    ├── CustomerRewardSingle.js
 │   │   └── ...
 │   ├── Hooks/
 │   │   ├── useApi.js
@@ -83,6 +83,7 @@ reward-calculator/
 │   ├── App.js
 │   ├── index.css
 │   ├── index.js
+│   ├── logger.js
 │   ├── setupTests.js
 │   └── ...
 ├── package.json

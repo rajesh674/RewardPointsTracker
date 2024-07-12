@@ -14,7 +14,6 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 // Functional component for rendering each row in the table
 const CustomerRewardSingle = ({ id, row }) => {
   const [open, setOpen] = useState(false); // State for managing row expansion/collapse
-console.log('row',row)
   return (
     <>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
