@@ -13,7 +13,7 @@ const styleObj = {
 };
 
 // Functional component ErrorPage
-const ErrorPage = () => {
+const ErrorPage = ({errorText}) => {
   return (
     <Stack sx={styleObj} spacing={2}>
       {/* Stack component with custom style and spacing */}
@@ -26,7 +26,7 @@ const ErrorPage = () => {
           {/* Fragment to group multiple elements */}
           <h1>404 - Page Not Found</h1>{" "}
           {/* Heading displaying the error message */}
-          <p>Sorry, the page you are looking for could not be found.</p>{" "}
+          <p>{errorText}</p>{" "}
           {/* Paragraph with error explanation */}
         </>
       </Alert>

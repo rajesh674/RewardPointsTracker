@@ -6,6 +6,7 @@ import {
   calculateRewardPointsByTransactions
 } from "../utils/calculateRewardPointsByTransactions"; // Importing function to calculate reward points
 import apiData from "../service/dataService"; // Importing API data fetching function
+import {constants} from "../utils/constants";
 
 // Custom hook useApi
 const useApi = (url) => {
@@ -27,10 +28,10 @@ const useApi = (url) => {
                       setData(results); // Update state with calculated results
                   })
                   .catch((err) => {
-                      setError(err); // Handle error if promise rejects
+                      setError(constants?.ERROR_MESSAGE); // Handle error if promise rejects
                   });
           } catch (error) {
-              setError(error); // Handle any unexpected errors
+              setError(constants?.ERROR_MESSAGE); // Handle any unexpected errors
           } finally {
               setLoading(false); // Set loading state to false after fetching data
           }

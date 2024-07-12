@@ -42,7 +42,7 @@ function App() {
 
   // Display error page if there is an error
   if (error?.length > 0) {
-    return <ErrorPage />;
+    return <ErrorPage errorText={error} />;
   }
 
   return (

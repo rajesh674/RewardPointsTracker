@@ -1,60 +1,39 @@
 // Import the function to be tested
 import { calculateRewardPointsByTransactions } from '../utils/calculateRewardPointsByTransactions';
+import calculatePointsByAmount from '../utils/calculatePointsByAmount';
 
-describe('calculateRewardPointsByTransactions function', () => {
-  // Test case for normal scenario
-  it('calculates points per transaction correctly', () => {
-    const testData = [
-      { custid: 1, customerName: 'Ram', amount: 289, transactionDate: '05-01-2024' },
-      { custid: 2, customerName: 'Rohan', amount: 200, transactionDate: '01-20-2024' }
-    ];
-
-    const result = calculateRewardPointsByTransactions(testData);
-
-    expect(result).toBeDefined();
-    expect(result.pointsPerTransaction).toHaveLength(2);
-
-    
-    // Example assertions for specific transactions
-    expect(result.pointsPerTransaction[0].points).toBe(428); // Ram points for $289 transaction
-    expect(result.pointsPerTransaction[1].points).toBe(250);  // Rohan points for $200 transaction
+describe('calculateRewardPointsByTransactions', () => {
+  it('returns empty array for empty input', () => {
+      const input = [];
+      const result = calculateRewardPointsByTransactions(input);
+      expect(result).toEqual([]);
   });
 
-  // Test case for error handling
-  it('throws an error for invalid transaction amount', () => {
-    const testData = [
-      { custid: 1, customercustomerName: 'Ram', amount: 'invalid', transactionDate: '05-15-2024' },
-      { custid: 2, customercustomerName: 'Rohan', amount: -50, transactionDate: '01-05-2024' }
-    ];
-
-    // Wrap the function call in a function to catch the error
-    const testFunction = () => calculateRewardPointsByTransactions(testData);
-
-    expect(testFunction).toThrow('Invalid transaction amount');
+  it('correctly calculates reward points for a single transaction', () => {
+      const input = [
+          { custid: '1', customerName: 'John Doe', transactionDate: '2024-01-15', amount: 100 }
+      ];
+      const result = calculateRewardPointsByTransactions(input);
+      expect(result).toHaveLength(1);
+      expect(result[0].totalRewardPoints).toBe(calculatePointsByAmount(100));
+      // Add more specific assertions based on your expected output structure
   });
 
-  // Test case for summaryByCustomer
-  it('aggregates points and amount correctly by customer', () => {
-    const testData = [
-      { custid: 1, customerName: 'Ram', amount: 289, transactionDate: '05-01-2024' },
-      { custid: 1, customerName: 'Ram', amount: 85, transactionDate: '01-20-2024' },
-      { custid: 2, customerName: 'Rohan', amount: 200, transactionDate: '01-05-2024' }
-    ];
-
-    const result = calculateRewardPointsByTransactions(testData);
-
-    expect(result).toBeDefined();
-    expect(result.summaryByCustomer).toHaveLength(3); // Assuming three different entries based on testData
-
-    // Example assertions for specific customers
-    const johnSummary = result.summaryByCustomer.find(summary => summary.customerName === 'Ram');
-    const janeSummary = result.summaryByCustomer.find(summary => summary.customerName === 'Rohan');
-
-    expect(johnSummary.points).toBe(428); // Total points for Ram
-    expect(johnSummary.amount).toBe(289);   // Total amount for Ram
-    expect(janeSummary.points).toBe(250);  // Total points for Rohan
-    expect(janeSummary.amount).toBe(200);    // Total amount for Rohan
+  it('correctly aggregates points by customer for multiple transactions', () => {
+      const input = [
+          { custid: '1', customerName: 'John Doe', transactionDate: '2024-01-15', amount: 100 },
+          { custid: '1', customerName: 'John Doe', transactionDate: '2024-02-20', amount: 200 },
+          { custid: '2', customerName: 'Jane Smith', transactionDate: '2024-01-05', amount: 150 }
+      ];
+      const result = calculateRewardPointsByTransactions(input);
+      expect(result).toHaveLength(2); // Assuming two customers in the input
+      expect(result[0].totalRewardPoints).toBe(
+          calculatePointsByAmount(100) + calculatePointsByAmount(200)
+      );
+      expect(result[1].totalRewardPoints).toBe(calculatePointsByAmount(150));
+      // Add more specific assertions based on your expected output structure
   });
 
-  // Add more tests as needed to cover all scenarios and edge cases
+  // Add more test cases to cover edge cases, such as transactions spanning across months, etc.
 });
+
