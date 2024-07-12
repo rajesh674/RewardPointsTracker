@@ -1,5 +1,6 @@
 // Importing the function to calculate points based on amount
 import calculatePointsByAmount from "./calculatePointsByAmount";
+import logger from '../logger';
 
 // Exporting a function to calculate reward points by transactions
 export function calculateRewardPointsByTransactions(incomingData) {
@@ -38,7 +39,7 @@ export function calculateRewardPointsByTransactions(incomingData) {
         pointsByCustomer[custid].monthlyRewardPoints[month].amount += amount;
         pointsByCustomer[custid].totalRewardPoints += points;
         pointsByCustomer[custid].totalAmount += amount;
-
+        logger.log('Earn Reward points By Customer: ', pointsByCustomer);
         return pointsByCustomer;
     }, {}); // Initial value for reduce is an empty object
 

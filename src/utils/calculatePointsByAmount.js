@@ -1,6 +1,8 @@
 import {
     RewardThresholdAmount
 } from "../enum/RewardThresholdAmountEnum";
+import logger from '../logger';
+
 const calculatePointsByAmount = (amount) => {
     if (typeof amount !== "number" || amount < 0) {
         throw new Error("Invalid transaction amount");
@@ -22,6 +24,7 @@ const calculatePointsByAmount = (amount) => {
         // plus 1 point for every dollar spent over $50 in each transaction
         points += amount - RewardThresholdAmount.BETWEEN_50_AND_100;
     }
+    logger.log('Earn Reward points By Amount: ', points);
     return points;
 };
 
