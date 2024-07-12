@@ -76,7 +76,7 @@ reward-calculator/
     │   │   ├    ├── index.js
     │   │   ├    ├── CustomerRewardSingle.js
 │   │   └── ...
-│   ├── Hooks/
+│   ├── hooks/
 │   │   ├── useApi.js
 │   │   └── ...
 │   ├── App.css

@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from "react";
 
 // Importing custom hook for API data fetching
-import useApi from "./hooks/useApi";
+import useApi from "./hook/useApi";
 
 // Importing components
 
