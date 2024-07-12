@@ -59,7 +59,7 @@ const TableRows = ({ id, row }) => {
                   <TableRow>
                     {/* Transaction history table headers */}
                     <TableCell style={{ fontWeight: 600 }}>
-                      Transaction Month
+                      Month
                     </TableCell>
                     <TableCell style={{ fontWeight: 600 }}>
                       Transaction Amount
