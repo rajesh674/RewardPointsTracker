@@ -12,9 +12,9 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 // Functional component for rendering each row in the table
-const TableRows = ({ id, row }) => {
+const CustomerRewardSingle = ({ id, row }) => {
   const [open, setOpen] = useState(false); // State for managing row expansion/collapse
-
+console.log('row',row)
   return (
     <>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -30,12 +30,12 @@ const TableRows = ({ id, row }) => {
           </IconButton>
 
         </TableCell>
-        <TableCell>{id + 1}</TableCell>
+        <TableCell>{row?.custid}</TableCell>
         <TableCell align="center" component="th" scope="row">
-          {row.customerName}
+          {row?.customerName}
         </TableCell>
-        <TableCell align="center">${row.totalAmount}</TableCell>
-        <TableCell align="center">{row.totalRewardPoints}</TableCell>
+        <TableCell align="center">${row?.totalAmount}</TableCell>
+        <TableCell align="center">{row?.totalRewardPoints}</TableCell>
       </TableRow>
 
       {/* Subrow with transaction history */}
@@ -91,4 +91,4 @@ const TableRows = ({ id, row }) => {
   );
 };
 
-export default TableRows; // Exporting the TableRows component as default
+export default CustomerRewardSingle; // Exporting the TableRows component as default

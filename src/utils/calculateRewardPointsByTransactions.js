@@ -18,6 +18,7 @@ export function calculateRewardPointsByTransactions(incomingData) {
         // Initializing customer if not already present in pointsByCustomer object
         if (!pointsByCustomer[custid]) {
             pointsByCustomer[custid] = {
+                custid:0,
                 customerName: '',
                 monthlyRewardPoints: {},
                 totalRewardPoints: 0,
@@ -31,6 +32,7 @@ export function calculateRewardPointsByTransactions(incomingData) {
         }
 
         // Updating customer details and reward points
+        pointsByCustomer[custid].custid = custid;
         pointsByCustomer[custid].customerName = customerName;
         pointsByCustomer[custid].monthlyRewardPoints[month].points += points;
         pointsByCustomer[custid].monthlyRewardPoints[month].amount += amount;

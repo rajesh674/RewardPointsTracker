@@ -11,7 +11,7 @@ describe('calculateRewardPointsByTransactions', () => {
 
   it('correctly calculates reward points for a single transaction', () => {
       const input = [
-          { custid: '1', customerName: 'John Doe', transactionDate: '2024-01-15', amount: 100 }
+          { custid: '1', customerName: 'Ram', transactionDate: '2024-01-15', amount: 100 }
       ];
       const result = calculateRewardPointsByTransactions(input);
       expect(result).toHaveLength(1);
@@ -21,9 +21,9 @@ describe('calculateRewardPointsByTransactions', () => {
 
   it('correctly aggregates points by customer for multiple transactions', () => {
       const input = [
-          { custid: '1', customerName: 'John Doe', transactionDate: '2024-01-15', amount: 100 },
-          { custid: '1', customerName: 'John Doe', transactionDate: '2024-02-20', amount: 200 },
-          { custid: '2', customerName: 'Jane Smith', transactionDate: '2024-01-05', amount: 150 }
+          { custid: '1', customerName: 'Ram', transactionDate: '2024-01-15', amount: 100 },
+          { custid: '1', customerName: 'Ram', transactionDate: '2024-02-20', amount: 200 },
+          { custid: '2', customerName: 'Rohan', transactionDate: '2024-01-05', amount: 150 }
       ];
       const result = calculateRewardPointsByTransactions(input);
       expect(result).toHaveLength(2); // Assuming two customers in the input

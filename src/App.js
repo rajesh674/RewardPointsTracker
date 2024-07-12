@@ -1,14 +1,14 @@
 import React, { Suspense, lazy } from "react";
 
 // Importing custom hook for API data fetching
-import useApi from "./Hooks/useApi";
+import useApi from "./hooks/useApi";
 
 // Importing components
 
-import Loader from "./components/Loader";
-import ErrorPage from "./components/ErrorPage";
-// Importing Tables component dynamically using lazy and Suspense
-const Tables = lazy(() => import("./components/Tables"));
+import Loader from "./components/loader";
+import ErrorPage from "./components/errorpage";
+// Importing CustomerRewards component dynamically using lazy and Suspense
+const CustomerRewards = lazy(() => import("./components/customerrewards"));
 
 // Styles for the container div
 const styleObj = {
@@ -49,7 +49,7 @@ function App() {
     <div style={styleObj}>
         {/* Lazy-loaded component for displaying monthly reward points */}
         <Suspense fallback={<Loader />}>
-          <Tables
+          <CustomerRewards
             title="Total reward points of customers"
             data={data}
             columns={columns}

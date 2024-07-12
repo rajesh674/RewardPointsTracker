@@ -1,5 +1,5 @@
 import React from "react";
-import TableRows from "./TableRows"; // Importing the component for table rows
+import CustomerRewardSingle from "./CustomerRewardSingle"; // Importing the component for table rows
 
 // Importing necessary components from Material-UI
 import Table from "@mui/material/Table";
@@ -19,7 +19,7 @@ const titleObj = {
 };
 
 // Functional component for Tables
-const Tables = ({ title, data, columns }) => {
+const CustomerRewards = ({ title, data, columns }) => {
 
   // Render the component
   return (
@@ -35,7 +35,7 @@ const Tables = ({ title, data, columns }) => {
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell style={{ fontWeight: 600 }}>Sr.</TableCell>
+              <TableCell style={{ fontWeight: 600 }}>Customer ID</TableCell>
               {/* Mapping over columns array to create table headers */}
               {columns.map((el, i) => {
                 return (
@@ -51,7 +51,7 @@ const Tables = ({ title, data, columns }) => {
             {/* Mapping over data to create rows */}
             {data?.map((row, i) => {
               return (
-                <TableRows
+                <CustomerRewardSingle
                   key={i}
                   id={i}
                   row={row}
@@ -65,4 +65,4 @@ const Tables = ({ title, data, columns }) => {
   );
 };
 
-export default Tables; // Exporting the Tables component as default
+export default CustomerRewards; // Exporting the Tables component as default
