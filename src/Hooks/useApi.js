@@ -16,7 +16,6 @@ const useApi = (url) => {
     const [loading, setLoading] = useState(false); // State to track loading state
     const [error, setError] = useState(null); // State to hold error information
 
-
     useEffect(() => {
         // useEffect hook to fetch data when component mounts or url changes
         const fetchData = async () => {
