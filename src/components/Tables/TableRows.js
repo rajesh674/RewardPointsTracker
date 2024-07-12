@@ -39,8 +39,7 @@ const TableRows = ({ id, row }) => {
       </TableRow>
 
       {/* Subrow with transaction history */}
-
-      {Object.keys(row?.monthlyRewardPoints) ? <TableRow>
+      {Object.keys(row?.monthlyRewardPoints).length > 0 ? <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           {/* Collapse component for showing/hiding the transaction history */}
           <Collapse in={open} timeout="auto" unmountOnExit>
