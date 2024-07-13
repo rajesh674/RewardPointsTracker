@@ -52,7 +52,7 @@ Error -
 ![error](https://github.com/rajesh674/RewardPointsTracker/blob/main/public/assest/error.png)
 
 
-### flow diagram
+### Flow Diagram
 ![flow_diagram](https://github.com/rajesh674/RewardPointsTracker/blob/main/public/assest/flow_diagram.png)
 
 
