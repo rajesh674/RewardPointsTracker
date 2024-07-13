@@ -52,6 +52,10 @@ Error -
 ![error](https://github.com/rajesh674/RewardPointsTracker/blob/main/public/assest/error.png)
 
 
+### flow diagram
+![flow_diagram](https://github.com/rajesh674/RewardPointsTracker/blob/main/public/assest/flow_diagram.png)
+
+
 ### File Structure
 
 reward-calculator/
