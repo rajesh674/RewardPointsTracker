@@ -33,7 +33,8 @@ const CustomerRewardSingle = ({ id, row }) => {
         <TableCell align="center" component="th" scope="row">
           {row?.customerName}
         </TableCell>
-        <TableCell align="center">${row?.totalAmount}</TableCell>
+        <TableCell align="center">{row?.year}</TableCell>
+        <TableCell align="center">${row?.totalAmount?.toFixed(2)}</TableCell>
         <TableCell align="center">{row?.totalRewardPoints}</TableCell>
       </TableRow>
 
@@ -73,10 +74,10 @@ const CustomerRewardSingle = ({ id, row }) => {
                   {Object.keys(row?.monthlyRewardPoints).map((month, i) => (
                     <TableRow key={i}>
                       <TableCell style={{ padding: "20px 15px" }}>
-                        {month}
+                        {month}-{row?.monthlyRewardPoints[month]?.year}
                       </TableCell>
-                      <TableCell>${row?.monthlyRewardPoints[month].amount}</TableCell>
-                      <TableCell>{row?.monthlyRewardPoints[month].points}</TableCell>
+                      <TableCell>${row?.monthlyRewardPoints[month]?.amount}</TableCell>
+                      <TableCell>{row?.monthlyRewardPoints[month]?.points}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

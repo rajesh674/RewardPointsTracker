@@ -22,6 +22,9 @@ const columns = [
     Header: "Customer Name",
   },
   {
+    Header: "Transaction Year",
+  },
+  {
     Header: "Total Amount",
   },
   {

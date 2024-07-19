@@ -14,11 +14,11 @@ export default function() {
               transactionDate: "06-01-2024"
           },
           {
-              custid: 1,
-              customerName: "Ram",
-              amount: 224,
-              transactionDate: "07-21-2024"
-          },
+            custid: 1,
+            customerName: "Ram",
+            amount: 224,
+            transactionDate: "07-10-2024"
+        },
           {
               custid: 2,
               customerName: "Rohan",
