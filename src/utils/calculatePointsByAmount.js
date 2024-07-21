@@ -8,7 +8,7 @@ const calculatePointsByAmount = (amount) => {
         throw new Error("Invalid transaction amount");
     }
     let points = 0;
-    let over100 = amount - RewardThresholdAmount.OVER_100;
+    const over100 = amount - RewardThresholdAmount.OVER_100;
     if (amount >= 0 && amount <= RewardThresholdAmount.BETWEEN_50_AND_100) {
         // plus 0 point for every dollar spent over $50 in each transaction
         points = 0;

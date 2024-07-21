@@ -1,27 +1,11 @@
 // Importing the function to calculate points based on amount
 import calculatePointsByAmount from "./calculatePointsByAmount";
+import getLast3MonthsData from './getLast3MonthsData';
 import logger from '../logger';
 
 // Exporting a function to calculate reward points by transactions
 export function calculateRewardPointsByTransactions(incomingData) {
 
-    // Function to get last 3 months data
-    function getLast3MonthsData(transactions) {
-        // Get current date
-        const currentDate = new Date();
-
-        // Calculate date 3 months ago
-        const threeMonthsAgoDate = new Date();
-        threeMonthsAgoDate.setMonth(currentDate.getMonth() - 3);
-
-        // Filter transactions that occurred in the last 3 months
-        const last3MonthsData = transactions.filter(transaction => {
-            const transactionDate = new Date(transaction.transactionDate);
-            return transactionDate > threeMonthsAgoDate && transactionDate <= currentDate;
-        });
-
-        return last3MonthsData;
-    }
     const last3MonthsTransactions = getLast3MonthsData(incomingData);
 
     // Using reduce to aggregate data into an object
@@ -36,7 +20,7 @@ export function calculateRewardPointsByTransactions(incomingData) {
         const year = date.getFullYear();
 
         // Calculating points based on transaction amount
-        const points = calculatePointsByAmount(amount);
+        const points = calculatePointsByAmount(Number(amount));
 
         // Initializing customer if not already present in pointsByCustomer object
         if (!pointsByCustomer[custid]) {
@@ -59,15 +43,13 @@ export function calculateRewardPointsByTransactions(incomingData) {
         pointsByCustomer[custid].custid = custid;
         pointsByCustomer[custid].customerName = customerName;
         pointsByCustomer[custid].monthlyRewardPoints[month].points += points;
-        pointsByCustomer[custid].monthlyRewardPoints[month].amount += amount;
+        pointsByCustomer[custid].monthlyRewardPoints[month].amount += Number(amount);
         pointsByCustomer[custid].totalRewardPoints += points;
-        pointsByCustomer[custid].totalAmount += amount;
+        pointsByCustomer[custid].totalAmount += Number(amount);
         pointsByCustomer[custid].year = year;
         logger.log('Earn Reward points By Customer: ', pointsByCustomer);
         return pointsByCustomer;
     }, {}); // Initial value for reduce is an empty object
-
-
 
     // Converting updatedData object into an array of customer data objects
     return Object.keys(updatedData).map(key => updatedData[key]);

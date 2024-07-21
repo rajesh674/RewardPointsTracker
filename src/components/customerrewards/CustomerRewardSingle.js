@@ -12,8 +12,10 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 // Functional component for rendering each row in the table
-const CustomerRewardSingle = ({ id, row }) => {
+const CustomerRewardSingle = ({ row }) => {
   const [open, setOpen] = useState(false); // State for managing row expansion/collapse
+
+  
   return (
     <>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -47,7 +49,7 @@ const CustomerRewardSingle = ({ id, row }) => {
               {/* Title for the transaction history section */}
               <Typography
                 variant="h6"
-                style={{ fontWeight: 600 }}
+                className="font-weight-600"
                 gutterBottom
                 component="div"
               >
@@ -58,13 +60,13 @@ const CustomerRewardSingle = ({ id, row }) => {
                 <TableHead>
                   <TableRow>
                     {/* Transaction history table headers */}
-                    <TableCell style={{ fontWeight: 600 }}>
+                    <TableCell className="font-weight-600">
                       Month
                     </TableCell>
-                    <TableCell style={{ fontWeight: 600 }}>
+                    <TableCell className="font-weight-600">
                       Transaction Amount
                     </TableCell>
-                    <TableCell style={{ fontWeight: 600 }}>
+                    <TableCell className="font-weight-600">
                       Reward Points
                     </TableCell>
                   </TableRow>

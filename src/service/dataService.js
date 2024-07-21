@@ -1,4 +1,4 @@
-export default function() {
+export default function apiData() {
   // simulates data coming from a database.
   return Promise.resolve(
       [{

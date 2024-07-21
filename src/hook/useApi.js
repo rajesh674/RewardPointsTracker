@@ -9,6 +9,9 @@ import {
 } from "../utils/calculateRewardPointsByTransactions"; // Importing function to calculate reward points
 import apiData from "../service/dataService"; // Importing API data fetching function
 
+import Loader from '../components/loader';
+import ErrorPage from "../components/errorpage";
+
 // Custom hook useApi
 const useApi = (url) => {
     // State variables using useState hook
@@ -42,6 +45,16 @@ const useApi = (url) => {
 
         fetchData(); // Invoke fetchData function when useEffect runs
     }, [url]); // Dependency array ensures useEffect runs only when url changes
+
+  // Loader while fetching data
+  if (loading) {
+    return <Loader />;
+  }
+
+  // Display error page if there is an error
+  if (error?.length > 0) {
+    return <ErrorPage errorText={error} />;
+  }
 
     // Return data, loading state, and error state as an object
     return {

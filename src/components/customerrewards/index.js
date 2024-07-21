@@ -1,5 +1,6 @@
 import React from "react";
 import CustomerRewardSingle from "./CustomerRewardSingle"; // Importing the component for table rows
+//import ErrorPage from "../components/errorpage";
 
 // Importing necessary components from Material-UI
 import Table from "@mui/material/Table";
@@ -17,9 +18,24 @@ const titleObj = {
   marginBottom: "15px",
   fontWeight: 600,
 };
+// Columns for the 'Monthly Rewards' tab
+const columns = [
+  {
+    Header: "Customer Name",
+  },
+  {
+    Header: "Transaction Year",
+  },
+  {
+    Header: "Total Amount",
+  },
+  {
+    Header: "Total Reward Points",
+  },
+];
 
 // Functional component for Tables
-const CustomerRewards = ({ title, data, columns }) => {
+const CustomerRewards = ({ title, data }) => {
 
   // Render the component
   return (
@@ -49,15 +65,14 @@ const CustomerRewards = ({ title, data, columns }) => {
           {/* Table body */}
           <TableBody>
             {/* Mapping over data to create rows */}
-            {data?.map((row, i) => {
+            {data?.length > 0 ? data?.map((row, i) => {
               return (
                 <CustomerRewardSingle
                   key={i}
-                  id={i}
                   row={row}
                 />
               );
-            })}
+            }) : <td colSpan={6} className="p-5"><h1 style={{textAlign:'center'}}> No records found </h1></td>}
           </TableBody>
         </Table>
       </TableContainer>

@@ -1,61 +1,28 @@
 import React, { Suspense, lazy } from "react";
+import './App.css'
 
 // Importing custom hook for API data fetching
 import useApi from "./hook/useApi";
 
 // Importing components
-
 import Loader from "./components/loader";
-import ErrorPage from "./components/errorpage";
+
 // Importing CustomerRewards component dynamically using lazy and Suspense
 const CustomerRewards = lazy(() => import("./components/customerrewards"));
-
-// Styles for the container div
-const styleObj = {
-  maxWidth: "1200px",
-  margin: "0 auto",
-};
-
-// Columns for the 'Monthly Rewards' tab
-const columns = [
-  {
-    Header: "Customer Name",
-  },
-  {
-    Header: "Transaction Year",
-  },
-  {
-    Header: "Total Amount",
-  },
-  {
-    Header: "Total Reward Points",
-  },
-];
 
 
 // Main App component
 function App() {
   // State for managing API data fetching status
-  const { data, loading, error } = useApi();
-
-  // Loader while fetching data
-  if (loading) {
-    return <Loader />;
-  }
-
-  // Display error page if there is an error
-  if (error?.length > 0) {
-    return <ErrorPage errorText={error} />;
-  }
+  const { data } = useApi();
 
   return (
-    <div style={styleObj}>
+    <div className="main">
         {/* Lazy-loaded component for displaying monthly reward points */}
         <Suspense fallback={<Loader />}>
           <CustomerRewards
             title="Total reward points of customers"
             data={data}
-            columns={columns}
           />
         </Suspense>
     </div>
