@@ -10,7 +10,6 @@ import Loader from "./components/loader";
 // Importing CustomerRewards component dynamically using lazy and Suspense
 const CustomerRewards = lazy(() => import("./components/customerrewards"));
 
-
 // Main App component
 function App() {
   // State for managing API data fetching status
