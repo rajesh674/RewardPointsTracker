@@ -4,6 +4,7 @@ import './App.css'
 // Importing custom hook for API data fetching
 import useApi from "./hook/useApi";
 
+
 // Importing components
 import Loader from "./components/loader";
 
