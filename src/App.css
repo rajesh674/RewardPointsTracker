@@ -2,7 +2,24 @@
 .main{
   max-width: 1200px;
   margin: 0 auto;
+  display: flex;
 }
 .font-weight-600{
   font-weight: 600 !important;
 }
+
+
+.header{
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+}
+.side{
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+} 
+.right{
+  padding: 10px;
+}
+
