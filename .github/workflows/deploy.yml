@@ -12,28 +12,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
       - name: Copy files to server
-        uses: appleboy/ssh-action@v0.1.6
+        uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.SERVER_IP }}
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "."
+          source: "."        # Copies entire repo
           target: "/var/www/website/RewardPointsTracker"
           script: |
             cd /var/www/website/RewardPointsTracker
             npm install
             npm run build
-            pm2 restart RewardPointsTracker
+            pm2 restart RewardPointsTracker || pm2 start npm --name "RewardPointsTracker" -- run start
