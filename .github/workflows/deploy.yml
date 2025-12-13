@@ -31,9 +31,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           source: "."
-          target: "/var/www/myproject"
+          target: "/var/www/website/RewardPointsTracker"
           script: |
-            cd /var/www/myproject
+            cd /var/www/website/RewardPointsTracker
             npm install
             npm run build
-            pm2 restart mywebsite
+            pm2 restart RewardPointsTracker
