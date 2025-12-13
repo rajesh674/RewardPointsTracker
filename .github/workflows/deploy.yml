@@ -1,17 +1,39 @@
-
-name: Deploy
+name: Deploy to Server
 
 on:
   push:
-    branches: [ "main" ]
-    
+    branches:
+      - main  # Trigger when main branch is updated
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
-    
     steps:
-    - uses: actions/checkout@v4
-    - run: docker build . -t rajesh0006/rewardpointstracker
-    - run: echo "${{secrets.DOCKERHUB_PASSWORD}}" | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin 
-    - run: docker push rajesh0006/rewardpointstracker:latest
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Copy files to server
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          source: "."
+          target: "/var/www/myproject"
+          script: |
+            cd /var/www/myproject
+            npm install
+            npm run build
+            pm2 restart mywebsite
