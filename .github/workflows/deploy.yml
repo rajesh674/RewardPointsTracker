@@ -19,7 +19,7 @@ jobs:
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "."        # Copies entire repo
+          source: "." # Copies entire repo
           target: "/var/www/website/RewardPointsTracker"
           script: |
             cd /var/www/website/RewardPointsTracker
