@@ -1,4 +1,3 @@
-# .github/workflows/deploy.yml
 name: Deploy RewardPointsTracker
 
 on:
@@ -11,15 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
+      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Set up Node.js
+      # Step 2: Set up Node.js 24
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '24.x'
+          node-version: '24'
 
       # Step 3: Install dependencies and build locally
       - name: Install dependencies and build
@@ -27,7 +26,7 @@ jobs:
           npm install
           npm run build
 
-      # Step 4: Copy necessary files to server
+      # Step 4: Copy production files to server
       - name: Copy files to server
         uses: appleboy/scp-action@v0.1.1
         with:
@@ -39,11 +38,9 @@ jobs:
             package.json
             package-lock.json
             build/**
-            public/**
-            src/**  # optional if your server needs source files
           target: /var/www/website/RewardPointsTracker
 
-      # Step 5: Run install (if needed) and restart app via PM2
+      # Step 5: Deploy on server via SSH and restart PM2
       - name: Deploy on server
         uses: appleboy/ssh-action@v0.1.8
         with:
