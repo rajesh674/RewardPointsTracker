@@ -1,47 +1,40 @@
-name: Deploy React Build
+name: Auto Deploy RewardPointsTracker
 
 on:
   push:
     branches:
-      - main
+      - main   # triggers on every push to main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            set -e  # stop if any command fails
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
+            echo "➡️ Navigating to project directory..."
+            cd /var/www/website/RewardPointsTracker
 
-    - name: Install dependencies
-      run: npm ci
-      working-directory: website/RewardPointsTracker
+            echo "➡️ Pulling latest code..."
+            git fetch origin main
+            git reset --hard origin/main
 
-    - name: Build React app
-      run: npm run build
-      working-directory: website/RewardPointsTracker
+            echo "➡️ Installing dependencies..."
+            npm ci
 
-    - name: Copy React build to VPS
-      uses: appleboy/scp-action@v0.1.4
-      with:
-        host: 160.250.204.146
-        username: root
-        key: ${{ secrets.VPS_SSH_KEY }}
-        source: "website/RewardPointsTracker/build/*"
-        target: "/var/www/website/RewardPointsTracker/build"
-        overwrite: true
+            echo "➡️ Building project..."
+            npm run build
 
-    - name: Reload server (if using Nginx)
-      uses: appleboy/ssh-action@v0.1.8
-      with:
-        host: 160.250.204.146
-        username: root
-        key: ${{ secrets.VPS_SSH_KEY }}
-        script: |
-          systemctl reload nginx || echo "Nginx not used"
-          echo "✅ Deployment completed!"
+            echo "➡️ Restarting app with PM2 (zero-downtime)..."
+            pm2 startOrReload ecosystem.config.js --env production || \
+            pm2 restart RewardPointsTracker || \
+            pm2 start npm --name "RewardPointsTracker" -- run start
+
+            echo "✅ Deployment completed!"
