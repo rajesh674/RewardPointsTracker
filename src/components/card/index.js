@@ -10,6 +10,8 @@ const style = {
     alignItems: "center",
 };
 const Card = ({ name }) => {
+
+    console.log("Rendering Card:", name);
     return (
         <div style={style}>{name}</div>
     )
