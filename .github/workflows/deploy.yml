@@ -1,48 +1,55 @@
-name: Deploy React Build
+name: Deploy RewardPointsTracker
 
 on:
   push:
     branches:
-      - main   # or master
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
+      # Step 2: Set up Node.js 24
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
 
-    - name: Install dependencies
-      run: npm ci
-      working-directory: ./website/RewardPointsTracker
+      # Step 3: Install dependencies and build locally
+      - name: Install dependencies and build
+        run: |
+          npm install
+          npm run build
 
-    - name: Build React app
-      run: npm run build
-      working-directory: ./website/RewardPointsTracker
+      # Step 4: Copy production files to server
+      - name: Copy files to server
+        uses: appleboy/scp-action@v0.1.1
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          source: |
+            package.json
+            package-lock.json
+            build/**
+          target: /var/www/website/RewardPointsTracker
 
-    - name: Copy React build to VPS
-      uses: appleboy/scp-action@v0.1.4
-      with:
-        host: 160.250.204.146
-        username: root
-        key: ${{ secrets.VPS_SSH_KEY }}
-        source: "website/RewardPointsTracker/build/*"
-        target: "/var/www/website/RewardPointsTracker/build"
-        overwrite: true
-        strip_components: 0
-
-    - name: Reload server (if using Nginx)
-      uses: appleboy/ssh-action@v0.1.8
-      with:
-        host: 160.250.204.146
-        username: root
-        key: ${{ secrets.VPS_SSH_KEY }}
-        script: |
-          systemctl reload nginx || echo "Nginx not used"
-          echo "✅ Deployment completed!"
+      # Step 5: Deploy on server via SSH and restart PM2
+      - name: Deploy on server
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd /var/www/website/RewardPointsTracker
+            npm install --production
+            pm2 restart RewardPointsTracker || pm2 start npm --name "RewardPointsTracker" -- run start
+            pm2 save
