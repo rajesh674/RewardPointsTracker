@@ -16,6 +16,7 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 2222
           script: |
             set -e  # stop if any command fails
 
