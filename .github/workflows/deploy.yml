@@ -3,7 +3,7 @@ name: Auto Deploy RewardPointsTracker
 on:
   push:
     branches:
-      - main   # Trigger deployment on main branch push
+      - main
 
 jobs:
   deploy:
@@ -18,23 +18,11 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             set -e
-
-            echo "➡️ Navigate to project"
             cd /var/www/website/RewardPointsTracker
-
-            echo "➡️ Pull latest code"
             git fetch origin main
             git reset --hard origin/main
-
-            echo "➡️ Install dependencies"
             npm ci
-
-            echo "➡️ Build project"
             npm run build
-
-            echo "➡️ Reload app with PM2"
             pm2 startOrReload ecosystem.config.js --env production || \
             pm2 restart RewardPointsTracker || \
             pm2 start npm --name "RewardPointsTracker" -- run start
-
-            echo "✅ Deployment completed!"
