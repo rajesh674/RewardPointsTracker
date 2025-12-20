@@ -1,30 +1,16 @@
-name: Auto Deploy RewardPointsTracker
+name: Test SSH
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  ssh-test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Deploy to VPS via SSH
+      - name: Test SSH Connection
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SERVER_IP }}
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            set -e
-            cd /var/www/website/RewardPointsTracker
-            git fetch origin main
-            git reset --hard origin/main
-            npm ci
-            npm run build
-            pm2 startOrReload ecosystem.config.js --env production || \
-            pm2 restart RewardPointsTracker || \
-            pm2 start npm --name "RewardPointsTracker" -- run start
-
-            echo "✅ Deployment completed!"
+          script: echo "✅ SSH works!"
